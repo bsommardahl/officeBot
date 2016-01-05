@@ -6,11 +6,6 @@ var robot
 var ultrasonicPin = 15
 //var irreceiverPin = 8
 
-var rl = readline.createInterface({
-  input : process.stdin,
-  output: process.stdout
-});
-
 robot = new Robot({
   minVoltage: 5.5,
   criticalVoltage: 1.2,
