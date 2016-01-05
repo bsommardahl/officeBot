@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="helloApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Byron Bot Remote Control</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+	button { height: 100px; width: 100px;}
+</style>
+<script>
+	var helloApp = angular.module("helloApp", [])
+	.directive('myTouchstart', [function() {
+                return function(scope, element, attr) {
+                    element.on('mousedown touchstart', function(event) {
+                        scope.$apply(function() { 
+                            scope.$eval(attr.myTouchstart); 
+                        });
+                    });
+                };
+            }]).directive('myTouchend', [function() {
+                return function(scope, element, attr) {
+                    element.on('mouseup touchend', function(event) {
+                        scope.$apply(function() { 
+                            scope.$eval(attr.myTouchend); 
+                        });
+                    });
+                };
+            }]);
+	helloApp.controller("HelloCtrl", function($scope, $http) {
+	
+		$scope.highSpeed = function(){
+			$http.post("/highSpeed");
+		};
+		
+		$scope.lowSpeed = function(){
+			$http.post("/lowSpeed");
+		};
+		
+		$scope.stop = function(){
+			$http.post("/stop");
+		};
+		
+		$scope.stop = function(){
+			$http.post("/stop");
+		};
+		
+		$scope.forward = function(){
+			$http.post("/forward");
+		};
+	
+		$scope.back = function(){
+			$http.post("/backward");
+		};
+	
+		$scope.right = function(){
+			$http.post("/right");
+		};
+	
+		$scope.left = function(){
+			$http.post("/left");
+		};
+	
+		$scope.rotateRight = function(){
+			$http.post("/rightRotate");
+		};
+	
+		$scope.left = function(){
+			$http.post("/left");
+		};
+	
+		$scope.rotateLeft = function(){
+			$http.post("/leftRotate");
+		};
+	
+	});
+</script>
+</head>
+<body ng-controller="HelloCtrl">
+	
+	<table>
+		<tr>
+			<td><button class="fa fa-undo" my-touchstart="rotateLeft()" my-touchend="stop()"></button></td>
+			<td><button my-touchstart="forward()" my-touchend="stop()"><i class="fa fa-arrow-up fa-6"></i></button></td>
+			<td><button class="fa fa-repeat" my-touchstart="rotateRight()" my-touchend="stop()"></button></td>			
+		</tr>
+		<tr>
+			<td><button class="fa fa-arrow-left" my-touchstart="left()" my-touchend="stop()"></button></td>
+			<td></td>
+			<td><button class="fa fa-arrow-right" my-touchstart="right()" my-touchend="stop()"></button></td>
+		</tr>
+		<tr>
+			<td><button class="fa fa-fast-backward fa-3" my-touchstart="lowSpeed()"></button></td>
+			<td><button class="fa fa-arrow-down fa-3" my-touchstart="back()" my-touchend="stop()"></button></td>
+			<td><button class="fa fa-fast-forward fa-3" my-touchstart="highSpeed()"></button></td>
+			
+		</tr>
+	</table>
+</body>
+</html>	
